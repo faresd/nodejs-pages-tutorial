@@ -13,6 +13,7 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     prismic = require('express-prismic').Prismic,
+    pages = require('./pages'),
     configuration = require('./prismic-configuration').Configuration;
 
 
@@ -49,6 +50,9 @@ function handleError(err, req, res) {
 app.route('/').get(function(req, res){
   res.render('index');
 });
+
+app.route('/:uid').get(pages.page);
+
 
 app.route('/preview').get(prismic.preview);
 
