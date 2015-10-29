@@ -4,7 +4,6 @@ var prismic = require('express-prismic').Prismic,
 
 exports.page = function(req, res) {
   var uid = req.params['uid']
-  console.log(uid, "uid")
 
   var p = prismic.withContext(req, res);
   p.getByUID('page', uid, function(err, page) {
@@ -13,10 +12,8 @@ exports.page = function(req, res) {
         .send('Not found');
     }
     else if (page.uid == uid) {
-      var slices =  page.getSliceZone("page.body").value;
       res.render('page', {
         page: page,
-        slices: slices,
         helpers: {
           buildMixinName:buildMixinName
         }
@@ -25,7 +22,6 @@ exports.page = function(req, res) {
   });
 };
 
-
 function buildMixinName(sliceType, sliceLabel) {
   var labeledFileExists = fs.existsSync(path.resolve('views/slices/' + sliceType + '-' + sliceLabel + '.jade')),
       mixinWithLabel = toCamelcase(sliceType + '-' + sliceLabel),
@@ -33,7 +29,6 @@ function buildMixinName(sliceType, sliceLabel) {
   return mixinName;
 
 }
-
 
 function toCamelcase(name) {
   return name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase()})
