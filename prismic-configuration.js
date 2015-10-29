@@ -1,6 +1,6 @@
 exports.Configuration = {
 
-  apiEndpoint: 'https://your-repo-name.prismic.io/api',
+  apiEndpoint: 'https://testtestfdr.prismic.io/api',
 
   // -- Access token if the Master is not open
   // accessToken: 'xxxxxx',
