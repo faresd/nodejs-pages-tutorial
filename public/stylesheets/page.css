@@ -68,11 +68,6 @@ a:hover {
   margin: 0 0 20px 0;
 }
 
-li.col-2, li.col-3 {
-  border: none;
-  padding: 0 1rem 2rem 6rem;
-}
-
 
 .slides h1 {
   margin-bottom: 2rem;
@@ -177,13 +172,6 @@ li.col-2, li.col-3 {
 }
 
 
-.imageFull {
-  height: auto;
-}
-.imageFull img {
-  width: 100%;
-}
-
 /* Separator */
 
 hr.separator {
@@ -261,18 +249,8 @@ hr.separator {
   .slides .arrow-prev, .slides .arrow-next {
     bottom: 5%;
   }
-  .col-1, .col-2, .col-3, .col-4, .col-text, .col-illustration {
+  .col-2, .col-3, .col-text, .col-illustration {
     padding: 1.3rem;
-  }
-
-
-  .section-header {
-    text-align: center;
-    padding: 20px !important;
-  }
-  .row-centered-aired.text.text-centered {
-    padding: 1.5rem;
-
   }
 
   .alternated-items > div:not(.alternate) .alternated-highlights .col-2:first-child {
