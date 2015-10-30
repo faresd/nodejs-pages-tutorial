@@ -5,6 +5,11 @@ exports.page = function(req, res) {
 
   var p = prismic.withContext(req, res);
   p.getByUID('page', uid, function(err, page) {
+    if(err) {
+      res.status(500)
+        .send("Error 500: " + err.message);
+    }
+
     if(!page) {
       res.status(404)
         .send('Not found');
