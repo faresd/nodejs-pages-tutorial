@@ -2,7 +2,7 @@
 
 ### Getting started
 
-Blog Starter is a Page template backed by prismic.io CMS.
+Page Starter is a page template backed by prismic.io CMS.
 
 #### Setting up prismic.io
 
