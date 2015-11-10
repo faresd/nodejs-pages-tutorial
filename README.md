@@ -1,23 +1,37 @@
-## Starter for NodeJS projects
-
-This is a blank [NodeJS](http://nodejs.org/) (using [express](http://expressjs.com/)) project that will connect to any prismic.io repository, and trivially list its documents. It uses the prismic.io JavaScript development kit, and provides a few helpers to integrate with [express](http://expressjs.com/).
+## prismic.io Page Starter for NodeJS (uses express and jade)
 
 ### Getting started
 
-#### Launch the starter project
+Blog Starter is a Page template backed by prismic.io CMS.
 
-*(Assuming you've [installed Node.js and npm](http://www.joyent.com/blog/installing-node-and-npm/))*
+#### Setting up prismic.io
 
-Fork this repository, then clone your fork, and run this in your newly created directory:
+##### Create your own account and repo on [prismic.io](https://prismic.io/signup).
 
-```sh
-npm install
-node app
-```
+Create the Custom Type of your page in prismic.io Writing-room
 
-Your Node.js starter project is now up and running! However, by default, it will list and display documents from our "[Les Bonnes Choses](http://lesbonneschoses.prismic.me)" example repository.
+* Navigate to `Setting` / `Custom types`
 
-#### Configure the starter project
+* Create a new `type-id` and and a `Type label` that correspond to a page. for example `page`, `Page`.
+
+* Start with using this [sample page Custom Type](https://gist.github.com/faresd/0fc8a96ee35a0192fc6d).
+  * This type contains 4 different slices alternated-highlights, featured-items, slides and a separator as well as a uid (a unique identifier) and a title for your page.
+
+##### Custom Type instance (document)
+
+Create an instance of you custom types
+
+* Navigate to `Your documents` / `Write something`
+* Choose the custom type you have created
+* Start by adding your page content `Slices` on the left side `Add a Content Slice...` (`Slides`, `Featured Items`, `Alternated Highlights`, `separator`)
+* Finally add your page url `unique-identifier-for-page-url` in Metadata tab (uid) and you Page meta title for example : `page-starter-sample-page`, `Page Starter Sample Page`
+* Save and publish
+
+
+#### prismic.io Page Starter for Javascript Node.JS
+
+* Download the [latest release]()
+* Unzip locally or on your server
 
 Edit the `prismic-configuration.js` file to get the application connected to the right repository:
 
@@ -29,10 +43,40 @@ exports.Configuration = {
   // -- Access token if the Master is not open
   // accessToken: 'xxxxxx',
 
+  // OAuth
+  // clientId: 'xxxxxx',
+  // clientSecret: 'xxxxxx',
   ...
 ```
 
-You may have to restart your server.
+* Install [npm & node](https://www.npmjs.com/package/npm)
+
+To run it on your local machine, 2 possibilities:
+
+In command line:
+* using [nodemon](https://github.com/remy/nodemon) (node wrapper)
+```
+npm install -g nodemon
+```
+```
+nodemon app
+```
+
+* using node
+```
+npm install
+```
+```
+node app
+```
+You are all set, just navigate to `/page-starter-sample-page` to open your Page...
+
+#### Further development
+
+This Website Starter uses [Jade - Template Engine](http://jade-lang.com/).
+
+To adapt the design of your web site; you can modify the corresponding slices in jade located in: `/views`.
+
 
 #### Deploy your NodeJS application
 
