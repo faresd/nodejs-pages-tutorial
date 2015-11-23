@@ -13,8 +13,7 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     prismic = require('express-prismic').Prismic,
-    pages = require('./pages'),
-    configuration = require('./prismic-configuration').Configuration;
+  configuration = require('./prismic-configuration').Configuration;
 
 
 var app = express();
@@ -51,7 +50,26 @@ app.route('/').get(function(req, res){
   res.render('index');
 });
 
-app.route('/:uid').get(pages.page);
+app.route('/:uid').get(function(req, res){
+  var uid = req.params['uid']
+  var p = prismic.withContext(req, res);
+  p.getByUID('page', uid, function(err, page) {
+    if(err) {
+      res.status(500)
+        .send("Error 500: " + err.message);
+    }
+
+    if(!page) {
+      res.status(404)
+        .send('Not found');
+    }
+    else if (page.uid == uid) {
+      res.render('page', {
+        page: page
+      })
+    } else res.redirect(("/" + page.uid))
+  });
+});
 
 
 app.route('/preview').get(prismic.preview);

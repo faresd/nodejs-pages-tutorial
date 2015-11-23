@@ -1,41 +1,3 @@
-mixin button(url, content)
-    if url
-        a.button(href= url) !{content}
-    else
-        a.button !{content}
-
-
-mixin alternatedHighlights(slice)
-    div.alternated-items
-        - var index = 0;
-        each alternatedHighlight in slice.value.toArray()
-            - var odd = (index % 2 != 0)
-            - var illustration = alternatedHighlight.get("illustration")? alternatedHighlight.get("illustration").getView("main") : null
-            - var altClass = odd ? "alternate" : ""
-            div(class= altClass)
-                div.row-centered.alternated-highlights.flex-container
-                    if !odd
-                        div.col-2
-                            - var backgroundStyle = 'background-image: url(' + illustration.url + ');'
-                            div.illustration.squared-image(style=backgroundStyle ? backgroundStyle : '')
-                    div.col-2
-                        div.text-wrapper
-                            h2 !{alternatedHighlight.get('title') ? alternatedHighlight.get('title').asText() : 'No title'}
-                            if alternatedHighlight.get('summary')
-                                | !{alternatedHighlight.get('summary').asHtml()}
-                            - var readMore = alternatedHighlight.get('read-more')
-                            - var readMoreLabel = alternatedHighlight.get('read-more-label')
-                            if readMoreLabel
-                                - var url = readMore ? ctx.linkResolver(readMore) : null
-                                - var content = readMoreLabel ? readMoreLabel.asText() : ''
-                                + button(url, content)
-                    if odd
-                        div.col-2
-                            - var backgroundStyle = 'background-image: url(' + illustration.url + ');'
-                            div.illustration.squared-image(style=backgroundStyle ? backgroundStyle : '')
-            - index = index + 1;
-
-
 mixin featuredItems(slice)
     div.row-centered-aired.featured-items.flex-container
         each featuredItem in slice.value.toArray()
@@ -45,39 +7,21 @@ mixin featuredItems(slice)
                 h3 !{featuredItem.get('title') ? featuredItem.get('title').asText() : ''}
                 | !{featuredItem.get('summary') ? featuredItem.get('summary').asHtml() : ''}
 
-                - var readMore = featuredItem.get('read-more')
-                - var readMoreLabel = featuredItem.get('read-more-label')
-                - var url = readMore ? ctx.linkResolver(readMore): null
-                if readMoreLabel
-                    - var content = readMoreLabel ? readMoreLabel.asText() : ''
-                    + button(url, content)
+
+mixin faq(slice)
+    - var flexContainer = slice.label ? " flex-container" : ""
+    div(class= "row-centered-aired faq" + flexContainer)
+        - var opentag = false;
+        - var items = slice.value.toArray()
+        each faq in slice.value.toArray()
+            div(class= slice.label)
+                h3 !{faq.get('question') ? faq.get('question').asText() : 'Empty'}
+                | !{faq.get('answer') ? faq.get('answer').asHtml() : 'Empty'}
 
 
-mixin slides(slice)
-    div(class = "slides")
-        - var slides = slice.value.toArray()
-        if(slides.length > 1)
-            a(href='#').arrow-prev &nbsp;
-        - var index = 0;
-        each slide in slides
-            - var illustration = slide.get("illustration")? slide.get("illustration").getView("main") : null;
-            - var illustrationUrl = illustration ? illustration.url : ''
-            - var readMore = slide.get("read-more")
-            - var readMoreLabel = slide.get("read-more-label")
-            - var activeSlide = index == 0 ? ' active' : ''
-            div(class="slide#{activeSlide}", style='background-image: url(' + illustrationUrl + ');')
-                div.slide-container !{slide.get('title') ? slide.get('title').asHtml() : ''} !{slide.get('summary') ? slide.get('summary').asHtml() : ''}
-                    if readMoreLabel
-                        - var url = readMore ? ctx.linkResolver(readMore) : null
-                        a.button(href=url) button
-                - index = index + 1;
-        if(slides.length > 1)
-            a(href='#').arrow-next &nbsp;
-
-
-
-mixin separator(slice)
-    hr(class="separator")
+mixin text(slice)
+    div(class = "row-centered-aired text" + ' #{slice.label? slice.label : ""}')
+        | !{slice.value.asHtml()}
 
 
 head
@@ -90,19 +34,16 @@ head
     link(rel="stylesheet", href="/stylesheets/vendor/font-awesome.css")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     script(src="/javascript/vendors/jquery-1.11.2.min.js")
-    script(src="/javascript/slices.js")
 
 body.page
     div.main
         div#page-content
-            for slice in page.getSliceZone("page.body").value
+            for slice in page.getSliceZone("page.body").slices
                 if slice.sliceType != undefined
                     case slice.sliceType
-                        when 'alternated-highlights'
-                            + alternatedHighlights(slice)
+                        when 'faq'
+                            + faq(slice)
                         when 'featured-items'
                             + featuredItems(slice)
-                        when 'slides'
-                            + slides(slice)
-                        when 'separator'
-                            + separator(slice)
+                        when 'text'
+                            + text(slice)

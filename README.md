@@ -14,7 +14,7 @@ Create the Custom Type of your page in prismic.io Writing-room
 
 * Create a new `type-id` and and a `Type label` that correspond to a page. for example `page`, `Page`.
 
-* Start with using this [sample page Custom Type](https://gist.github.com/faresd/0fc8a96ee35a0192fc6d).
+* Start with using this [sample page Custom Type](https://gist.github.com/faresd/71bef955dfd8c43bc927).
   * This type contains 4 different slices alternated-highlights, featured-items, slides and a separator as well as a uid (a unique identifier) and a title for your page.
 
 ##### Custom Type instance (document)

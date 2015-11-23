@@ -21,22 +21,6 @@ h6, .h6 {
     font-family: 'Lato', sans-serif;
 }
 
-.button {
-    cursor: pointer;
-    font-family: 'Lato', sans-serif;
-    color: #0C0E57;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid #D8D8D8;
-    padding: 0.7rem 1rem;
-    font-size: 0.8rem;
-    border-radius: 4px;
-    letter-spacing: 1px;
-    display: inline-block;
-    text-align: center;
-    background: none;
-}
-
 .main h3 {
     margin: 0 0 16px 0;
     line-height: 1.7rem;
